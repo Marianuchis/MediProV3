@@ -9,7 +9,6 @@ console.log('[API_URL]', API_URL);
 
 
 //10.186.6.138
-const API_URL = 'http://192.168.100.55:3000';
 //const API_URL = 'http://10.186.6.138:3000';
 console.log('[API_URL]', API_URL);
 

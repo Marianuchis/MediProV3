@@ -8,7 +8,6 @@ const API_URL = 'http://localhost:3000'; // cambia por tu IP si usas Expo Go en 
 
 console.log('[API_URL]', API_URL);
 
-const API_URL = 'http://192.168.100.55:3000';
 //const API_URL = 'http://10.186.6.138:3000';
 console.log('[API_URL]', API_URL);
 
