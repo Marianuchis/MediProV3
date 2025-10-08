@@ -17,7 +17,7 @@ const app = express();
 app.use(
   cors({
     origin: "*",
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "OPTIONS", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -162,6 +162,33 @@ app.get("/usuarios", async (req, res) => {
     return res.json({ ok: true, data: rows });
   } catch (err) {
     console.error("USUARIOS ERR:", err);
+    return res.status(500).json({ ok: false, message: "Error de servidor" });
+  }
+});
+
+// -----------------------------------------------
+// ELIMINAR USUARIO
+// Borra un usuario especifico con el id que se envia desde la tabla
+// en el frontend usando la ruta /usuarios/:id, donde :id es el id del usuario a borrar
+// -----------------------------------------------
+app.delete("/usuarios/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Validar id
+    if (!id) return res.status(400).json({ ok: false, message: "Falta ID" });
+
+    // Ejecutar eliminación
+    const result = await q(`DELETE FROM ${TABLE} WHERE idUsuario = ?`, [id]);
+
+    if (result.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ ok: false, message: "Usuario no encontrado" });
+    }
+    return res.json({ ok: true, message: "Usuario eliminado correctamente" });
+  } catch (err) {
+    console.error("DELETE ERR:", err);
     return res.status(500).json({ ok: false, message: "Error de servidor" });
   }
 });
